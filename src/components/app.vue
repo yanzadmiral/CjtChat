@@ -90,6 +90,8 @@
     appId: "1:793694638009:web:ae42dde75d6bb190d3b068",
     measurementId: "G-S9L162510M"
   };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
   export default {
     data() {
       return {
