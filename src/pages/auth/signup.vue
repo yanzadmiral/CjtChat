@@ -22,7 +22,9 @@
 </template>
 
 <script>
+import { mixin } from "../../js/mixin";
 export default {
+    mixins : [mixin],
     data(){
        return {
             name: null,
@@ -30,20 +32,6 @@ export default {
             password:null,
             image_url : 'https://www.iconspng.com/images/-abstract-user-icon-1/-abstract-user-icon-1.jpg',
        }
-    },
-    computed:{
-        alert_message(){
-            return this.$store.getters.alert_message
-        }
-    },
-    watch:{
-        alert_message(value){
-            const self = this
-            this.ShowToastBottom(value)
-            setTimeout(()=>{
-                self.$store.commit('setAlertMessage',null)
-            },200)  
-        }
     },
     methods:{
         signUp(){
@@ -56,17 +44,6 @@ export default {
 
             this.$store.dispatch('signUp',payload)
         },
-        ShowToastBottom(text){
-            const self = this;
-            if (!self.toastBottom || self.toastBottom.destroyed) {
-                self.toastBottom = self.$f7.toast.create({
-                    text: text,
-                    closeTimeout: 2000,
-                    destroyOnClose:true
-                })
-                self.toastBottom.open();
-            }
-        }
     }
 }
 </script>
