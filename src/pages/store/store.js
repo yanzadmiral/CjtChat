@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthModule from './AuthModule'
+import FileModule from './FileModule';
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules:{
-    auth : AuthModule
+    auth : AuthModule,
+    file : FileModule
   },
   state: {
     alert_message:null

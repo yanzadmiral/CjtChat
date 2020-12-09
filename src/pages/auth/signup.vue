@@ -3,7 +3,7 @@
         <f7-navbar title="Sign Up" back-link="Back"></f7-navbar>
         <f7-block-title>Sign In</f7-block-title>
         <div class="wrapper">
-            <img :src="image_url" alt="icon" class="image--cover" ref="file" @click="GambarFilePicker">
+            <img :src="image_url" alt="a" class="image--cover" ref="file" @click="GambarFilePicker">
         </div>
         <f7-list no-hairlines-md>
             <f7-list-input :value="name" @input="name=$event.target.value" type="text" placeholder="Your name" clear-button>
@@ -17,7 +17,7 @@
         </f7-list>
         <f7-block>
             <f7-button outline @click="signUp">Sign Up</f7-button>
-            <input type="file" ref="file" style="display:none;">
+            <input type="file" ref="file" style="display:none;" @change="onFilePicked">
         </f7-block>
     </f7-page>
 </template>
@@ -31,8 +31,12 @@ export default {
             name: null,
             email:null,
             password:null,
-            image_url : 'https://www.iconspng.com/images/-abstract-user-icon-1/-abstract-user-icon-1.jpg',
        }
+    },
+    computed:{
+        image_url(){
+            return this.$store.getters.image_url
+        }
     },
     methods:{
         signUp(){
@@ -44,6 +48,9 @@ export default {
             payload.image_url = this.image_url
 
             this.$store.dispatch('signUp',payload)
+        },
+        onFilePicked(){
+            this.$store.dispatch('readFile')
         },
         GambarFilePicker(){
             this.$refs.file.click()
