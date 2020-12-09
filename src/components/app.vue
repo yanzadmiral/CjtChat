@@ -77,10 +77,19 @@
   </f7-app>
 </template>
 <script>
+  import firebase from 'firebase';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
   import cordovaApp from '../js/cordova-app.js';
   import routes from '../js/routes.js';
-
+  var firebaseConfig = {
+    apiKey: "AIzaSyCYnrw7WRDwxc-imezt5-3tYazyW8TR8Xw",
+    authDomain: "cjtchat-a2307.firebaseapp.com",
+    projectId: "cjtchat-a2307",
+    storageBucket: "cjtchat-a2307.appspot.com",
+    messagingSenderId: "793694638009",
+    appId: "1:793694638009:web:ae42dde75d6bb190d3b068",
+    measurementId: "G-S9L162510M"
+  };
   export default {
     data() {
       return {

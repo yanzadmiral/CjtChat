@@ -15,6 +15,7 @@ import '../css/icons.css';
 import '../css/app.less';
 
 // Import App Component
+import store from '../pages/store/store.js'
 import App from '../components/app.vue';
 
 // Init Framework7-Vue Plugin
@@ -23,7 +24,7 @@ Framework7.use(Framework7Vue);
 // Init App
 new Vue({
   el: '#app',
-  render: (h) => h(App),
+  render: (h) => h(App),store,
 
   // Register App Component
   components: {
