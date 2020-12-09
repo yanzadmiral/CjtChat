@@ -7,7 +7,8 @@ import FormPage from '../pages/form.vue';
 import DynamicRoutePage from '../pages/dynamic-route.vue';
 import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
-import SignView from '../pages/auth/signin.vue';
+import SigninPage from '../pages/auth/signin.vue';
+import SignupPage from '../pages/auth/signup.vue';
 
 var routes = [
   {
@@ -19,8 +20,12 @@ var routes = [
     component: AboutPage,
   },
   {
+    path: '/signup/',
+    component: SignupPage,
+  },
+  {
     path : '/signin/',
-    component: SignView,
+    component: SigninPage,
   },
   {
     path: '/form/',
