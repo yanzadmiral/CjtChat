@@ -3,7 +3,7 @@
         <f7-navbar title="Sign Up" back-link="Back"></f7-navbar>
         <f7-block-title>Sign In</f7-block-title>
         <div class="wrapper">
-            <img :src="image_url" alt="icon" class="image--cover">
+            <img :src="image_url" alt="icon" class="image--cover" ref="file" @click="GambarFilePicker">
         </div>
         <f7-list no-hairlines-md>
             <f7-list-input :value="name" @input="name=$event.target.value" type="text" placeholder="Your name" clear-button>
@@ -17,6 +17,7 @@
         </f7-list>
         <f7-block>
             <f7-button outline @click="signUp">Sign Up</f7-button>
+            <input type="file" ref="file" style="display:none;">
         </f7-block>
     </f7-page>
 </template>
@@ -43,6 +44,9 @@ export default {
             payload.image_url = this.image_url
 
             this.$store.dispatch('signUp',payload)
+        },
+        GambarFilePicker(){
+            this.$refs.file.click()
         },
     }
 }
