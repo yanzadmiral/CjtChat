@@ -36,6 +36,9 @@ export default {
     computed:{
         image_url(){
             return this.$store.getters.image_url
+        },
+        files(){
+            return this.$store.getters.files
         }
     },
     methods:{
@@ -45,9 +48,17 @@ export default {
             payload.name = this.name
             payload.password = this.password
             payload.email = this.email
-            payload.image_url = this.image_url
-
-            this.$store.dispatch('signUp',payload)
+            payload.photoURL = this.image_url
+            if (self.files) {
+                self.$store.dispatch('uploadedFile').then(url=>{
+                    payload.photoURL = url
+                    self.$store.dispatch('signUp',payload)
+                    
+                })
+            }else{
+                this.$store.dispatch('signUp',payload)
+            }
+            
         },
         onFilePicked(){
             this.$store.dispatch('readFile')

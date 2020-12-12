@@ -10,22 +10,23 @@ const AuthModule = {
                     uid: data.user.uid,
                     name: payload.name,
                     email:payload.email,
-                    emailverified : false
+                    emailverified : false,
+                    photoURL : payload.photoURL
                 })
 
                 let newuser = data.user;
                 newuser.updateProfile({
-                    displayName:payload.name,
-                    photoURL:payload.photoURL
+                    displayName : payload.name,
+                    photoURL : payload.photoURL
                 }).then(()=>{
-                    console.log('updateprofile')
+                    console.log('sukses update profile')
                 }).catch(err=>{
-                    console.log(err.message);
+                    console.log('error 2 '+err.message);
                     commit('setAlertMessage',err.message);
                 })
                 
             }).catch(err=>{
-                console.log(err.message);
+                console.log('error 3'+err.message);
                 commit('setAlertMessage',err.message);
             })
         }
