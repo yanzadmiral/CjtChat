@@ -39,6 +39,16 @@ export default {
         },
         files(){
             return this.$store.getters.files
+        },
+        signed_up(){
+            return this.$store.getters.signed_up
+        }
+    },
+    watch:{
+        signed_up(value){
+            if (value == true) {
+                this.$f7router.navigate('/signin/')
+            }
         }
     },
     methods:{
@@ -66,6 +76,9 @@ export default {
         GambarFilePicker(){
             this.$refs.file.click()
         },
+    },
+    created(){
+        this.$store.commit('setSignedUp',false)
     }
 }
 </script>
