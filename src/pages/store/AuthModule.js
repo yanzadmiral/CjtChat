@@ -13,7 +13,7 @@ const AuthModule = {
         }
     },
     actions:{
-        signUp({commit},payload){
+        signUp({commit, dispatch},payload){
             firebase.auth().createUserWithEmailAndPassword(payload.email,payload.password)
             .then(data=>{
 
@@ -31,6 +31,7 @@ const AuthModule = {
                     photoURL : payload.photoURL
                 }).then(()=>{
                     console.log('sukses update profile')
+                    dispatch('sendEmailVerivication')
                     commit('setSignedUp',true)
                 }).catch(err=>{
                     console.log('error 2 '+err.message);
@@ -41,6 +42,16 @@ const AuthModule = {
                 console.log('error 3'+err.message);
                 commit('setAlertMessage',err.message);
             })
+        },
+        sendEmailVerivication({commit}){
+            var user = firebase.auth().currentUser;
+
+            user.sendEmailVerification().then(function() {
+                // Email sent.
+                commit('setAlertMessage','Email Sudah Terkirim ke ${user.email}')
+            }).catch(function(error) {
+                // An error happened.
+            });
         }
     }
 }
