@@ -21,7 +21,9 @@
 </template>
 
 <script>
+import { mixin } from "../../js/mixin";
 export default {
+    mixins : [mixin],
     data(){
        return {
             email:null,

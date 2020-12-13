@@ -23,7 +23,7 @@ import App from '../components/app.vue';
 Framework7.use(Framework7Vue);
 let newapp = null
 firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
+  if (user && user.emailVerified) {
     store.commit('setSignedIn',true)
   } else {
     store.commit('setSignedIn',false)

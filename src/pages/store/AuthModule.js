@@ -21,8 +21,15 @@ const AuthModule = {
         signIn({commit},payload){
             firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
             .then(user=> {
-                //commit('setAlertMessage','berhasil');
-                commit('setSignedIn',true)
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user.emailVerified) {
+                      commit('setSignedIn',true);
+                      commit('setAlertMessage',user.displayName);
+                    } else {
+                      commit('setSignedIn',false);
+                      commit('setAlertMessage','Email Belum di verifikasi , mohon di verifikasi dahulu');
+                    }
+                })
             })
             .catch(error=> {
                 //commit('setAlertMessage',error.message);
@@ -37,7 +44,7 @@ const AuthModule = {
                     uid: data.user.uid,
                     name: payload.name,
                     email:payload.email,
-                    emailverified : false,
+                    emailVerified : false,
                     photoURL : payload.photoURL
                 })
 
