@@ -59,6 +59,11 @@ const AuthModule = {
                 commit('setAlertMessage',err.message);
             })
         },
+        signout({commit}){
+            firebase.auth().signOut().then(()=>{
+                commit('setSignedIn',false);
+            })
+        },
         sendEmailVerivication({commit}){
             var user = firebase.auth().currentUser;
 

@@ -15,19 +15,29 @@ import '../css/icons.css';
 import '../css/app.less';
 
 // Import App Component
-import store from '../pages/store/store.js'
+import firebase from 'firebase';
+import store from '../pages/store/store.js';
 import App from '../components/app.vue';
 
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
-
-// Init App
-new Vue({
-  el: '#app',
-  render: (h) => h(App),store,
-
-  // Register App Component
-  components: {
-    app: App
-  },
-});
+let newapp = null
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    store.commit('setSignedIn',true)
+  } else {
+    store.commit('setSignedIn',false)
+  }
+  if (!newapp) {
+    newapp = // Init App
+    new Vue({
+      el: '#app',
+      render: (h) => h(App),store,
+    
+      // Register App Component
+      components: {
+        app: App
+      },
+    });
+  }
+})
