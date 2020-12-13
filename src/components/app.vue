@@ -6,7 +6,7 @@
     <f7-view>
       <f7-page>
         <f7-navbar title="Left Panel"></f7-navbar>
-          <f7-list>
+       <f7-list>
             <f7-list-item link='/signin/' view=".view-main" panel-close title="Sign in"></f7-list-item>
           </f7-list>
       </f7-page>
@@ -25,8 +25,28 @@
   </f7-panel>
 
 
-  <!-- Your main view, should have "view-main" class -->
-  <f7-view main class="safe-areas" url="/"></f7-view>
+  <!-- Views/Tabs container -->
+  <f7-views tabs class="safe-areas" v-if="signed_in">
+    <!-- Tabbar for switching views-tabs -->
+    <f7-toolbar tabbar labels bottom>
+      <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:house_fill" icon-aurora="f7:house_fill" icon-md="material:home" text="Home"></f7-link>
+      <f7-link tab-link="#view-catalog" icon-ios="f7:square_list_fill" icon-aurora="f7:square_list_fill" icon-md="material:view_list" text="Catalog"></f7-link>
+      <f7-link tab-link="#view-settings" icon-ios="f7:gear" icon-aurora="f7:gear" icon-md="material:settings" text="Settings"></f7-link>
+    </f7-toolbar>
+
+    <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
+    <f7-view id="view-home" main tab tab-active url="/"></f7-view>
+
+    <!-- Catalog View -->
+    <f7-view id="view-catalog" name="catalog" tab url="/catalog/"></f7-view>
+
+    <!-- Settings View -->
+    <f7-view id="view-settings" name="settings" tab url="/settings/"></f7-view>
+
+  </f7-views>
+
+  <f7-view v-if="!signed_in" url="/signin/">
+  </f7-view>
 
 
     <!-- Popup -->
@@ -81,6 +101,7 @@
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
   import cordovaApp from '../js/cordova-app.js';
   import routes from '../js/routes.js';
+
   var firebaseConfig = {
     apiKey: "AIzaSyCYnrw7WRDwxc-imezt5-3tYazyW8TR8Xw",
     authDomain: "cjtchat-a2307.firebaseapp.com",
@@ -128,6 +149,11 @@
         this.$f7.dialog.alert('Username: ' + this.username + '<br>Password: ' + this.password, () => {
           this.$f7.loginScreen.close();
         });
+      }
+    },
+    computed : {
+      signed_in(){
+        return this.$store.getters.signed_in;
       }
     },
     mounted() {

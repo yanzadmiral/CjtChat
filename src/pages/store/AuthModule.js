@@ -3,16 +3,32 @@ import firebase from 'firebase';
 const AuthModule = {
     state:{
         signed_up : false,
+        signed_in : false,
     },
     getters : {
         signed_up : state => state.signed_up,
+        signed_in : state => state.signed_in
     },
     mutations : {
         setSignedUp(state,payload){
             state.signed_up = payload
+        },
+        setSignedIn(state,payload){
+            state.signed_in = payload
         }
     },
     actions:{
+        signIn({commit},payload){
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+            .then(user=> {
+                //commit('setAlertMessage','berhasil');
+                commit('setSignedIn',true)
+            })
+            .catch(error=> {
+                //commit('setAlertMessage',error.message);
+                console.log(error.message)
+            })
+        },
         signUp({commit, dispatch},payload){
             firebase.auth().createUserWithEmailAndPassword(payload.email,payload.password)
             .then(data=>{

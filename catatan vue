@@ -6,3 +6,5 @@ sec14
 --
 computed akan di eksekusi ketika data berubah
 sedangkan wathc akan di eksekusi ketika ada berubah atau tidak
+
+di vuex getter sebagai get mutation sebagai set
