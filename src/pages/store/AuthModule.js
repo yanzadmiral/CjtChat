@@ -76,9 +76,10 @@ const AuthModule = {
 
             user.sendEmailVerification().then(function() {
                 // Email sent.
-                commit('setAlertMessage','Email Sudah Terkirim ke ${user.email}')
+                commit('setAlertMessage','Email Sudah Terkirim')
             }).catch(function(error) {
-                // An error happened.
+                commit('setAlertMessage',error)
+                console.log(error)
             });
         }
     }
