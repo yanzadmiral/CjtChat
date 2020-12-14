@@ -12,7 +12,7 @@
         <f7-block>
             <f7-button outline @click="signin">Sign In</f7-button>
             <div style="text-align:center;">
-                <f7-link @click="resendEmial" :color="changeColor(time_left)">Resend Confirmation Email <span v-if="time_left > 0">&nbsp; {{ time_left }}</span></f7-link><br>
+                <f7-link v-if="show_resend_email" @click="resendEmial" :color="changeColor(time_left)">Resend Confirmation Email <span v-if="time_left > 0">&nbsp; {{ time_left }}</span></f7-link><br>
                 <f7-link href="/signup/">Dont Have an Account? Sing Up</f7-link><br>
                 <f7-link>Forget Password</f7-link><br>
             </div>
@@ -30,6 +30,11 @@ export default {
             password:null,
             time_left : -1,
        }
+    },
+    computed :{
+        show_resend_email(){
+            return this.$store.getters.show_resend_email
+        }
     },
     methods:{
         changeColor(timelft){

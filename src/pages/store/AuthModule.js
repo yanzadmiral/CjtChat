@@ -4,10 +4,12 @@ const AuthModule = {
     state:{
         signed_up : false,
         signed_in : false,
+        show_resend_email : false,
     },
     getters : {
         signed_up : state => state.signed_up,
-        signed_in : state => state.signed_in
+        signed_in : state => state.signed_in,
+        show_resend_email : state => state.show_resend_email
     },
     mutations : {
         setSignedUp(state,payload){
@@ -15,6 +17,9 @@ const AuthModule = {
         },
         setSignedIn(state,payload){
             state.signed_in = payload
+        },
+        setShowResendEmail(state,payload){
+            state.show_resend_email = payload
         }
     },
     actions:{
@@ -25,9 +30,11 @@ const AuthModule = {
                     if (user.emailVerified) {
                       commit('setSignedIn',true);
                       commit('setAlertMessage',user.displayName);
+                      commit('setShowResendEmail',false)
                     } else {
                       commit('setSignedIn',false);
                       commit('setAlertMessage','Email Belum di verifikasi , mohon di verifikasi dahulu');
+                      commit('setShowResendEmail',true)
                     }
                 })
             })
