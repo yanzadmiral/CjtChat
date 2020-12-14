@@ -14,14 +14,16 @@
             <div style="text-align:center;">
                 <f7-link v-if="show_resend_email" @click="resendEmial" :color="changeColor(time_left)">Resend Confirmation Email <span v-if="time_left > 0">&nbsp; {{ time_left }}</span></f7-link><br>
                 <f7-link href="/signup/">Dont Have an Account? Sing Up</f7-link><br>
-                <f7-link>Forget Password</f7-link><br>
+                <f7-link @click="forgetPassword">Forget Password</f7-link><br>
             </div>
         </f7-block>
     </f7-page>
 </template>
 
 <script>
+import { setInterval,clearInterval } from "timers";
 import { mixin } from "../../js/mixin";
+import firebase from "firebase";
 export default {
     mixins : [mixin],
     data(){
@@ -37,6 +39,22 @@ export default {
         }
     },
     methods:{
+        forgetPassword(){
+            const self = this
+            var auth = firebase.auth();
+
+            if (this.email != null) {
+                auth.sendPasswordResetEmail(this.email).then(function() {
+                    self.$store.commit('setAlertMessage','berhasil mengirim email kembali')
+                }).catch(function(error) {
+                    self.$store.commit('setAlertMessage',error.message)
+
+                });
+            }else{
+                    self.$store.commit('setAlertMessage','Mohon Isi Email')
+            }
+            
+        },
         changeColor(timelft){
             if (timelft<=0) {
                 return '#007aff';
