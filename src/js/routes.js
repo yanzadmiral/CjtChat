@@ -9,6 +9,7 @@ import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
 import SigninPage from '../pages/auth/signin.vue';
 import SignupPage from '../pages/auth/signup.vue';
+import EditProfile from '../pages/auth/editprofile';
 
 var routes = [
   {
@@ -26,6 +27,10 @@ var routes = [
   {
     path : '/signin/',
     component: SigninPage,
+  },
+  {
+    path : '/editprofile/',
+    component: EditProfile,
   },
   {
     path: '/form/',
