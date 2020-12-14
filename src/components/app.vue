@@ -6,9 +6,11 @@
     <f7-view>
       <f7-page>
         <f7-navbar title="Left Panel"></f7-navbar>
+        <div class="wrapper"><img :src="photo_url" alt="" class="image--cover"></div>
+        <f7-block class="wrapper">{{display_name}}</f7-block>
        <f7-list>
-            <f7-list-item link='/signin/' view=".view-main" panel-close title="Sign in"></f7-list-item>
-            <f7-list-item @click="signOut" view=".view-main" panel-close title="Sign Out"></f7-list-item>
+            <f7-list-item v-if="!signed_in" link='/signin/' view=".view-main" panel-close title="Sign in"></f7-list-item>
+            <f7-list-item v-if="signed_in" @click="signOut" view=".view-main" panel-close title="Sign Out"></f7-list-item>
           </f7-list>
       </f7-page>
     </f7-view>
@@ -158,6 +160,12 @@
       }
     },
     computed : {
+      display_name(){
+        return this.$store.getters.display_name
+      },
+      photo_url(){
+        return this.$store.getters.photo_url
+      },
       signed_in(){
         return this.$store.getters.signed_in;
       }
@@ -173,3 +181,16 @@
     }
   }
 </script>
+<style scoped>
+  .wrapper{
+        text-align: center;
+    }
+    .image--cover{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 20px;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>

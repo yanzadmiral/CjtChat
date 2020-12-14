@@ -5,11 +5,15 @@ const AuthModule = {
         signed_up : false,
         signed_in : false,
         show_resend_email : false,
+        display_name : null,
+        photo_url : null
     },
     getters : {
         signed_up : state => state.signed_up,
         signed_in : state => state.signed_in,
-        show_resend_email : state => state.show_resend_email
+        show_resend_email : state => state.show_resend_email,
+        display_name : state => state.display_name,
+        photo_url : state => state.photo_url
     },
     mutations : {
         setSignedUp(state,payload){
@@ -20,6 +24,12 @@ const AuthModule = {
         },
         setShowResendEmail(state,payload){
             state.show_resend_email = payload
+        },
+        setDisplayName(state,payload){
+            state.display_name = payload
+        },
+        setPhotoUrl(state,payload){
+            state.photo_url = payload
         }
     },
     actions:{

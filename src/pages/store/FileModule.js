@@ -2,7 +2,7 @@ import firebase from 'firebase'
 
 const FileModule = {
     state:{
-        image_url : 'https://www.iconspng.com/images/-abstract-user-icon-1/-abstract-user-icon-1.jpg',
+        image_url : 'https://via.placeholder.com/200',
         files : null,
     },
     getters : {

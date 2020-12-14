@@ -24,6 +24,8 @@ Framework7.use(Framework7Vue);
 let newapp = null
 firebase.auth().onAuthStateChanged(function(user) {
   if (user && user.emailVerified) {
+    store.commit('setDisplayName',user.displayName)
+    store.commit('setPhotoUrl',user.photoURL)
     store.commit('setSignedIn',true)
   } else {
     store.commit('setSignedIn',false)
