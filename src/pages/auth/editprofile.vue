@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 import { mixin } from "../../js/mixin";
 export default {
     mixins : [mixin],
@@ -60,7 +61,49 @@ export default {
         },
         updateProfile(){
             const self = this
-            this.$store.commit('setAlertMessage',self.display_name);
+            let payload = {}
+            var user = firebase.auth().currentUser;
+            if (self.files) {
+                if (this.photo_url != null) {
+                    var storage = firebase.storage()
+                    var httpreference = storage.refFromURL(this.photo_url);
+                    httpreference.delete().then(()=>{
+
+                    }).catch(err=>{
+                        console.log(err)
+                    })
+                }
+            }
+            if (self.files) {
+                self.$store.dispatch('uploadedFile').then(url=>{
+                    user.updateProfile({
+                        displayName: self.display_name,
+                        photoURL : url
+                    }).then(function () {
+                        self.$store.commit('setPhotoUrl',user.photoURL)
+                        self.$store.commit('setDisplayName',user.displayName)
+                        firebase.database().ref('users/'+user.uid).update({
+                            photoURL : user.photoURL,
+                            name : user.displayName
+                        })
+                    }).catch(err=>{
+                        console.log(err)
+                    })
+                })
+            }else{
+                user.updateProfile({
+                    displayName: self.display_name
+                }).then(function () {
+                    self.$store.commit('setDisplayName',user.displayName)
+                    firebase.database().ref('users/'+user.uid).update({
+                        name : user.displayName
+                    })
+                }).catch(err=>{
+                    console.log(err)
+                })
+            }
+            //this.$store.commit('setAlertMessage',self.display_name);
+
         }
     },
     created(){
