@@ -1,34 +1,40 @@
 <template>
   <f7-page name="contacts">
     <f7-navbar title="Contacts" back-link="Back"></f7-navbar>
-    <f7-block-title>About My Contacts</f7-block-title>
-    <f7-block strong>
-      <p>Fugiat perspiciatis excepturi, soluta quod non ullam deleniti. Nobis sint nemo consequuntur, fugiat. Eius perferendis animi autem incidunt vel quod tenetur nostrum, voluptate omnis quasi quidem illum consequuntur, a, quisquam.</p>
-      <p>Laudantium neque magnam vitae nemo quam commodi, in cum dolore obcaecati laborum, excepturi harum, optio qui, consequuntur? Obcaecati dolor sequi nesciunt culpa quia perspiciatis, reiciendis ex debitis, ut tenetur alias.</p>
-    </f7-block>
-    <f7-block>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni molestiae laudantium dignissimos est nobis delectus nemo ea alias voluptatum architecto, amet similique, saepe iste consectetur in repellat ut minus quibusdam!</p>
-      <p>Molestias et distinctio porro nesciunt ratione similique, magni doloribus, rerum nobis, aliquam quae reiciendis quasi modi. Nam a recusandae, fugiat in ea voluptates fuga eius, velit corrupti reprehenderit dignissimos consequatur!</p>
-      <p>Blanditiis, cumque quo adipisci. Molestiae, dolores dolorum quos doloremque ipsa ullam eligendi commodi deserunt doloribus inventore magni? Ea mollitia veniam nostrum nihil, iusto doloribus a at! Ea molestiae ullam delectus!</p>
-    </f7-block>
 
-    <pre>{{contacts}}</pre>
+    <f7-list media-list>
+      <f7-list-item v-for="(contact,index) in contacts" :key="index"
+        swipeout
+        link="#"
+        :title="contact.name">
+        <img class="small-avatar" slot="media" :src="contact.photoURL"/>
+        <f7-swipeout-actions right>
+          <f7-swipeout-button color="green">Add</f7-swipeout-button>
+        </f7-swipeout-actions>
+      </f7-list-item>
+    </f7-list>
   </f7-page>
 </template>
 
 <script>
-export default {
-    computed : {
-      contacts(){
+  export default {
+    computed: {
+      contacts() {
         return this.$store.getters.contacts
       }
     },
-    created(){
+    created() {
       this.$store.dispatch('getAllUsers')
     }
-}
+  }
 </script>
 
-<style>
-
+<style scoped>
+    .small-avatar{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+    }
 </style>
