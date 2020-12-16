@@ -7,12 +7,12 @@
       </f7-nav-left>
       <f7-nav-title sliding>CjtChat</f7-nav-title>
       <f7-nav-right>
-        <f7-link>
+        <f7-link href="/requests/">
           <f7-icon f7="person_circle">
             <span class="badge color-red">5</span>
           </f7-icon>
         </f7-link>
-        <f7-link icon-f7="person_crop_circle_badge_plus">
+        <f7-link icon-f7="person_crop_circle_badge_plus" href="/contacts/">
 
         </f7-link>
       </f7-nav-right>

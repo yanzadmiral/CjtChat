@@ -9,7 +9,10 @@ import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
 import SigninPage from '../pages/auth/signin.vue';
 import SignupPage from '../pages/auth/signup.vue';
-import EditProfile from '../pages/auth/editprofile';
+import EditProfile from '../pages/auth/editprofile.vue';
+
+import ContactsPage from "../pages/chat/contacts.vue";
+import RequestsPage from "../pages/chat/requests.vue";
 
 var routes = [
   {
@@ -19,6 +22,14 @@ var routes = [
   {
     path: '/about/',
     component: AboutPage,
+  },
+  {
+    path: '/contacts/',
+    component: ContactsPage,
+  },
+  {
+    path: '/requests/',
+    component: RequestsPage,
   },
   {
     path: '/signup/',
