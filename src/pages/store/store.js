@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthModule from './AuthModule'
 import FileModule from './FileModule';
-import ChatModule from "./ChatModule";
+import ChatModule from './ChatModule';
 
 Vue.use(Vuex)
 

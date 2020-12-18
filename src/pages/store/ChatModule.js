@@ -1,5 +1,5 @@
-import firebase from 'firebase';
-import * as db from './db';
+import firebase from "firebase";
+import * as db from "./db"
 const ChatModule = {
 
     state:{
@@ -28,16 +28,16 @@ const ChatModule = {
         },
         sendRequest({commit},payload){
             var promise = new Promise((resolve,reject)=>{
-                db.child(payload,recipient).push({sender:payload.sender})
-                .then(()=>{
-                    resolve({success:true})
-                })
-                .catch(err=>{
-                    reject(err)
-                })
+            db.firerequest.child(payload.recipient).push({sender:payload.sender})
+              .then(()=>{
+                resolve({success:true})
+              })
+              .catch(err=>{
+                reject(err)
+              })
             })
             return promise
-        }
+          }
     }
 }
 

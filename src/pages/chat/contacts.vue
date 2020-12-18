@@ -9,7 +9,7 @@
         :title="contact.name">
         <img class="small-avatar" slot="media" :src="contact.photoURL"/>
         <f7-swipeout-actions right>
-          <f7-swipeout-button color="green">Add</f7-swipeout-button>
+          <f7-swipeout-button color="green" @click="addFrd(contact)">Add</f7-swipeout-button>
         </f7-swipeout-actions>
       </f7-list-item>
     </f7-list>
@@ -17,7 +17,16 @@
 </template>
 
 <script>
+import firebase from 'firebase'
   export default {
+    methods:{
+      addFrd(frd){
+        var request = {}
+        request.sender = firebase.auth().currentUser.uid;
+        request.recipient = frd.uid
+        this.$store.dispatch('sendRequest',request)
+      }
+    },
     computed: {
       contacts() {
         return this.$store.getters.contacts
