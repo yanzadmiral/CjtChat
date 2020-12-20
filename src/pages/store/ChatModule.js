@@ -3,16 +3,19 @@ import * as db from "./db"
 const ChatModule = {
 
     state:{
-        contacts :{
-
-        }
+        contacts :[],
+        friend_request : [],
     },
     getters : {
         contacts : state => state.contacts,
+        friend_request : state => state.friend_request,
     },
     mutations : {
         setContacts(state,payload){
             state.contacts = payload
+        },
+        setFriendRequest(state,payload){
+            state.friend_request = payload
         }
 
     },
@@ -20,13 +23,16 @@ const ChatModule = {
         async getMyRequest({commit,dispatch}){
             var users = await dispatch('getAllUsers')
             db.firerequest.child(firebase.auth().currentUser.uid).on('value',snapshot=>{
-                console.log('getmy request',snapshot.val())
+                //console.log('getmy request',snapshot.val())
                 var frd_request_id = _.map(snapshot.val(),"sender")
-                console.log('frd request',frd_request_id)
-                console.log('users',users)
+                //console.log('frd request',frd_request_id)
+                //console.log('users',users)
+                let userdetails = []
                 _.forEach(frd_request_id,uuid=>{
-
+                    var user = _.find(users,["uid",uuid])
+                    userdetails.push(user)
                 })
+                commit('setFriendRequest',userdetails)
             } )
         },
         getAllUsers({commit}){
