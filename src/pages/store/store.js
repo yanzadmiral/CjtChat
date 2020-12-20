@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Lodash from 'lodash'
 import AuthModule from './AuthModule'
-import FileModule from './FileModule';
-import ChatModule from './ChatModule';
+import FileModule from './FileModule'
+import ChatModule from './ChatModule'
 
-Vue.use(Vuex)
+Vue.use(Vuex,Lodash)
 
 export default new Vuex.Store({
   modules:{

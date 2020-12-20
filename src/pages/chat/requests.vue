@@ -13,3 +13,11 @@
     </f7-block>
   </f7-page>
 </template>
+
+<script>
+export default {
+  created(){
+    this.$store.dispatch('getMyRequest')
+  }
+}
+</script>
