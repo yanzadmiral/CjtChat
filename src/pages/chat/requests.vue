@@ -24,7 +24,7 @@ export default {
 
     },
     remove(value){
-      
+      this.$store.dispatch('deleteRequest',value)
     }
   },
   computed:{
