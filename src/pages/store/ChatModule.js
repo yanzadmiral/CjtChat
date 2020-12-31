@@ -4,11 +4,13 @@ const ChatModule = {
 
     state:{
         contacts :[],
+        friends :[],
         friend_request : [],
     },
     getters : {
         contacts : state => state.contacts,
         friend_request : state => state.friend_request,
+        friends : state => state.friends
     },
     mutations : {
         setContacts(state,payload){
@@ -16,6 +18,9 @@ const ChatModule = {
         },
         setFriendRequest(state,payload){
             state.friend_request = payload
+        },
+        setFriends(state,payload){
+            state.friends = payload
         }
 
     },
@@ -76,6 +81,21 @@ const ChatModule = {
                     userdetails.push(user)
                 })
                 commit('setFriendRequest',userdetails)
+            } )
+        },
+        async getMyfriends({commit,dispatch}){
+            var users = await dispatch('getAllUsers')
+            db.firefriends.child(firebase.auth().currentUser.uid).on('value',snapshot=>{
+                //console.log('getmy request',snapshot.val())
+                var frd_id = _.map(snapshot.val(),"uid")
+                //console.log('frd request',frd_request_id)
+                //console.log('users',users)
+                let userdetails = []
+                _.forEach(frd_id,uuid=>{
+                    var user = _.find(users,["uid",uuid])
+                    userdetails.push(user)
+                })
+                commit('setFriends',userdetails)
             } )
         },
         getAllUsers({commit}){

@@ -9,7 +9,7 @@
       <f7-nav-right>
         <f7-link href="/requests/">
           <f7-icon f7="person_circle">
-            <span class="badge color-red">5</span>
+            <span class="badge color-red" v-if="friendrequest.length>0">{{friendrequest.length}}</span>
           </f7-icon>
         </f7-link>
         <f7-link icon-f7="person_crop_circle_badge_plus" href="/contacts/">
@@ -24,6 +24,7 @@
     <f7-block strong>
       <p>Here is your blank Framework7 app. Let's see what we have here. </p>
       <p></p>
+      <pre>{{ friends }}</pre>
     </f7-block>
     <f7-block-title>Navigation</f7-block-title>
     <f7-list>
@@ -72,7 +73,16 @@
 <script>
 export default {
   computed:{
-    
+      friends(){
+        return this.$store.getters.friends
+      },
+      friendrequest(){
+        return this.$store.getters.friend_request
+      }
+  },
+  created(){
+      this.$store.dispatch('getMyfriends')
+      this.$store.dispatch('getMyRequest')
   }
 }
 </script>
