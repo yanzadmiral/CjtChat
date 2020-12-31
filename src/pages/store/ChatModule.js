@@ -20,6 +20,26 @@ const ChatModule = {
 
     },
     actions:{
+        connfirmRequest({},payload){
+            var promise = new Promise((resolve,reject)=>{
+                db.firefriends.child(firebase.auth().currentUser.uid)
+                .push({uid:payload.uid})
+                .then(()=>{
+                    db.firefriends.child(payload.uid)
+                    .push({uid:firebase.auth().currentUser.uid})
+                })
+                .then(()=>{
+                    this.dispatch('deleteRequest',payload)
+                    .then(()=>{
+                        resolve(true)
+                    })
+                })
+                .catch(err=>{
+                    reject(err)
+                })
+            })
+            return promise
+        },
         deleteRequest({},payload){
           var promise = new Promise((resolve,reject)=>{
             db.firerequest.child(firebase.auth().currentUser.uid)

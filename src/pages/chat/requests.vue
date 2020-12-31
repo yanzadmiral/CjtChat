@@ -21,7 +21,7 @@
 export default {
   methods:{
     confirm(value){
-
+      this.$store.dispatch('connfirmRequest',value)
     },
     remove(value){
       this.$store.dispatch('deleteRequest',value)

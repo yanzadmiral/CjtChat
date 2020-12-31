@@ -10,3 +10,4 @@ var firebaseConfig = {
   };
   firebase.initializeApp(firebaseConfig);
 export const firerequest =  firebase.database().ref('/requests');
+export const firefriends =  firebase.database().ref('/friends');
