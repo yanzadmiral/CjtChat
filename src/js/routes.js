@@ -13,6 +13,7 @@ import EditProfile from '../pages/auth/editprofile.vue';
 
 import ContactsPage from "../pages/chat/contacts.vue";
 import RequestsPage from "../pages/chat/requests.vue";
+import ChatsPage from "../pages/chat/chat.vue";
 
 var routes = [
   {
@@ -30,6 +31,10 @@ var routes = [
   {
     path: '/requests/',
     component: RequestsPage,
+  },
+  {
+    path: '/chat/:frd',
+    component: ChatsPage,
   },
   {
     path: '/signup/',

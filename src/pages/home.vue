@@ -25,7 +25,8 @@
       <f7-list-item v-for="(frd,index) in friends" :key="index"
         swipeout
         link="#"
-        :title="frd.name">
+        :title="frd.name"
+        @click="gotoChat(frd)">
         <img class="small-avatar" slot="media" :src="frd.photoURL"/>
       </f7-list-item>
     </f7-list>
@@ -35,6 +36,12 @@
 
 <script>
 export default {
+  methods:{
+    gotoChat(frd){
+      let frd_string = JSON.stringify(frd)
+      this.$f7router.navigate('/chat/'+encodeURIComponent(frd_string))
+    }
+  },
   computed:{
       friends(){
         return this.$store.getters.friends
