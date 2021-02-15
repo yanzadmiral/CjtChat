@@ -1,5 +1,5 @@
 <template>
-  <f7-page name="home">
+  <f7-page name="home" @page:beforein="initHome">
     <!-- Top Navbar -->
     <f7-navbar large :sliding="false">
       <f7-nav-left>
@@ -40,6 +40,9 @@ export default {
     gotoChat(frd){
       let frd_string = JSON.stringify(frd)
       this.$f7router.navigate('/chat/'+encodeURIComponent(frd_string))
+    },
+    initHome(){
+      this.$store.commit('setShowTabar',true)
     }
   },
   computed:{

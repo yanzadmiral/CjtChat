@@ -20,7 +20,7 @@
   <!-- Views/Tabs container -->
   <f7-views tabs class="safe-areas" v-if="signed_in">
     <!-- Tabbar for switching views-tabs -->
-    <f7-toolbar tabbar labels bottom>
+    <f7-toolbar tabbar labels bottom v-if="showtabbar">
       <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:house_fill" icon-aurora="f7:house_fill" icon-md="material:home" text="Home"></f7-link>
       <f7-link tab-link="#view-catalog" icon-ios="f7:square_list_fill" icon-aurora="f7:square_list_fill" icon-md="material:view_list" text="Catalog"></f7-link>
       <f7-link tab-link="#view-editprofile" icon-ios="f7:gear" icon-aurora="f7:gear" icon-md="material:settings" text="Edit Profile"></f7-link>
@@ -151,6 +151,9 @@
     computed : {
       display_name(){
         return this.$store.getters.display_name
+      },
+      showtabbar(){
+        return this.$store.getters.showtabbar
       },
       photo_url(){
         return this.$store.getters.photo_url
