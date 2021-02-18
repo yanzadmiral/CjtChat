@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import { reject } from "lodash";
 import * as db from "./db"
 const ChatModule = {
 
@@ -25,6 +26,32 @@ const ChatModule = {
 
     },
     actions:{
+        sendMessage({},payload){
+            var promise = new Promise((resolve, reject) => {
+                db.firechats.child(firebase.auth().currentUser)
+                .child(payload.friend.uuid)
+                .push({
+                    sendby:firebase.auth().currentUser,
+                    text:payload.msg,
+                    image:payload.img,
+                    timestamp:firebase.database.ServerValue.TIMESTAMP
+                }).then(()=>{
+                    db.firechats.child(payload.friend.uuid)
+                    .child(firebase.auth().currentUser)
+                    .push({
+                        sendby:firebase.auth().currentUser,
+                        text:payload.msg,
+                        image:payload.img,
+                        timestamp:firebase.database.ServerValue.TIMESTAMP
+                    })
+                }).then(()=>{
+                    resolve(true)
+                }).catch(err=>{
+                    reject(err)
+                })
+            })
+            return promise
+        },
         connfirmRequest({},payload){
             var promise = new Promise((resolve,reject)=>{
                 db.firefriends.child(firebase.auth().currentUser.uid)
