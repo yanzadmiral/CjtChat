@@ -86,7 +86,7 @@ export default {
       attachments: [],
       sheetVisible: false,
       typingMessage: null,
-      messageText: 'asdasd',
+      messageText: '',
 
       messagesData: [
         {
