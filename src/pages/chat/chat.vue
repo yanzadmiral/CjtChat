@@ -4,7 +4,7 @@
 
   <f7-messagebar
     ref="messagebar"
-    :value="messageText"
+    v-model="messageText"
     :placeholder="placeholder"
     :attachments-visible="attachmentsVisible"
     :sheet-visible="sheetVisible"
@@ -76,8 +76,8 @@
 </f7-page>
 </template>
 <script>
-import { f7 } from 'framework7-vue';
-import $ from 'dom7';
+// import { f7 } from 'framework7-vue';
+// import $ from 'dom7';
 
 export default {
   data() {
@@ -86,7 +86,8 @@ export default {
       attachments: [],
       sheetVisible: false,
       typingMessage: null,
-      messageText: '',
+      messageText: 'asdasd',
+
       messagesData: [
         {
           type: 'sent',
@@ -115,10 +116,6 @@ export default {
         {
           type: 'sent',
           text: 'Hey, look, cutest kitten ever!',
-        },
-        {
-          type: 'sent',
-          image: 'https://cdn.framework7.io/placeholder/cats-200x260-4.jpg',
         },
         {
           name: 'Kate',
@@ -179,20 +176,20 @@ export default {
     };
   },
   computed: {
-    attachmentsVisible() {
-      const self = this;
-      return self.attachments.length > 0;
-    },
-    placeholder() {
-      const self = this;
-      return self.attachments.length > 0 ? 'Add comment or Send' : 'Message';
-    },
+      attachmentsVisible() {
+          const self = this;
+          return self.attachments.length > 0;
+      },
+      placeholder() {
+          const self = this;
+          return self.attachments.length > 0 ? 'Add comment or Send' : 'Message';
+      },
   },
   mounted() {
     const self = this;
-    self.$f7ready(() => {
-      self.messagebar = f7.messagebar.get(self.$refs.messagebar.$el);
-    });
+        self.$f7ready(() => {
+            self.messagebar = self.$refs.messagebar.f7Messagebar;
+        });
   },
   methods: {
     isFirstMessage(message, index) {
@@ -241,6 +238,7 @@ export default {
       }
     },
     sendMessage() {
+      console.log(this.messageText)
       const self = this;
       const text = self.messageText.replace(/\n/g, '<br>').trim();
       const messagesToSend = [];
@@ -258,6 +256,12 @@ export default {
         return;
       }
 
+      this.$store.commit('sendMessage',{
+        friend : this.friend,
+        msg : text,
+        img : null
+      });
+
       // Reset attachments
       self.attachments = [];
       // Hide sheet
@@ -266,30 +270,7 @@ export default {
       self.messageText = '';
       // Focus area
       if (text.length) self.messagebar.focus();
-      // Send message
-      self.messagesData.push(...messagesToSend);
 
-      // Mock response
-      if (self.responseInProgress) return;
-      self.responseInProgress = true;
-      setTimeout(() => {
-        const answer = self.answers[Math.floor(Math.random() * self.answers.length)];
-        const person = self.people[Math.floor(Math.random() * self.people.length)];
-        self.typingMessage = {
-          name: person.name,
-          avatar: person.avatar,
-        };
-        setTimeout(() => {
-          self.messagesData.push({
-            text: answer,
-            type: 'received',
-            name: person.name,
-            avatar: person.avatar,
-          });
-          self.typingMessage = null;
-          self.responseInProgress = false;
-        }, 4000);
-      }, 1000);
     },
   },
   created(){
